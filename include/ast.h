@@ -31,4 +31,5 @@ ASTNode *new_node(ASTType type,
 
 void print_ast(ASTNode *node, int depth);
 
+void free_ast(ASTNode *node);
 #endif

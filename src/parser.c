@@ -161,51 +161,7 @@ ASTNode *parse_factor(Parser *p)
     return NULL;
 }
 
-/*
- *The function is creating a AST number node.
- */
-ASTNode *new_number(double value)
-{
-    ASTNode *node = malloc(sizeof(ASTNode));
 
-    if(!node)
-    {
-        return NULL;
-    }
-
-    node->type = AST_NUMBER;
-    node->value = value;
-    node->left = NULL;
-    node->right = NULL;
-
-    return node;
-}
-
-/*
- *The function creates AST char node like ( or + and etc.
- */
-ASTNode *new_node(ASTType type,
-                  ASTNode *left,
-                  ASTNode *right)
-{
-    ASTNode *node = malloc(sizeof(ASTNode));
-
-    if(!node)
-    {
-        return NULL;
-    }
-
-    node->type = type;
-    node->value = 0;
-    node->left = left;
-    node->right = right;
-
-    return node;
-}
-
-/*
- * This will initialize the parse. it connects the parser to the text we got.
- */
 void parser_init(Parser *p, const char *text)
 {
     p->lexer.text = text;

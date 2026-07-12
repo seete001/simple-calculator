@@ -15,12 +15,12 @@ int calculate(const char *expression, double *result)
     if (parser.has_error || root == NULL)
     {
         free_ast(root);
-        return 0;
+        return 1;
     }
 
-    int flag = evaluate(root, result);
+    int stats = evaluate(root, result);
 
     free_ast(root);
 
-    return flag == 0;
+    return stats ;
 }

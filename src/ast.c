@@ -3,6 +3,49 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+/*
+ *The function is creating a AST number node.
+ */
+ASTNode *new_number(double value)
+{
+    ASTNode *node = malloc(sizeof(ASTNode));
+
+    if(!node)
+    {
+        return NULL;
+    }
+
+    node->type = AST_NUMBER;
+    node->value = value;
+    node->left = NULL;
+    node->right = NULL;
+
+    return node;
+}
+
+/*
+ *The function creates AST char node like ( or + and etc.
+ */
+ASTNode *new_node(ASTType type,
+                  ASTNode *left,
+                  ASTNode *right)
+{
+    ASTNode *node = malloc(sizeof(ASTNode));
+
+    if(!node)
+    {
+        return NULL;
+    }
+
+    node->type = type;
+    node->value = 0;
+    node->left = left;
+    node->right = right;
+
+    return node;
+}
+
 void print_ast(ASTNode *node, int depth)
 {
     if (node == NULL)

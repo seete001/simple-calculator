@@ -3,6 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -pthread -Iinclude
 
 SRC = src/main.c \
+	  src/calculator.c \
 	  src/lexer.c \
 	  src/parser.c \
 	  src/ast.c \

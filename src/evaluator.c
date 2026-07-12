@@ -1,45 +1,94 @@
 #include "../include/evaluator.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 
-double evaluate(ASTNode *node)
+int evaluate(ASTNode *node, double *result)
 {
-    if (node == NULL)
+    if (!node)
     {
         fprintf(stderr, "Invalid AST node.\n");
-        exit(1);
+        return 1;
     }
 
     switch (node->type)
     {
         case AST_NUMBER:
-            return node->value;
+            *result = node->value;
+            return 0;
+
 
         case AST_ADD:
-            return evaluate(node->left) + evaluate(node->right);
+        {
+            double lhs;
+            double rhs;
+
+            if (evaluate(node->left, &lhs))
+                return 1;
+
+            if (evaluate(node->right, &rhs))
+                return 1;
+
+            *result = lhs + rhs;
+            return 0;
+        }
+
 
         case AST_SUB:
-            return evaluate(node->left) - evaluate(node->right);
+        {
+            double lhs;
+            double rhs;
+
+            if (evaluate(node->left, &lhs))
+                return 1;
+
+            if (evaluate(node->right, &rhs))
+                return 1;
+
+            *result = lhs - rhs;
+            return 0;
+        }
+
 
         case AST_MUL:
-            return evaluate(node->left) * evaluate(node->right);
+        {
+            double lhs;
+            double rhs;
+
+            if (evaluate(node->left, &lhs))
+                return 1;
+
+            if (evaluate(node->right, &rhs))
+                return 1;
+
+            *result = lhs * rhs;
+            return 0;
+        }
+
 
         case AST_DIV:
         {
-            double rhs = evaluate(node->right);
+            double lhs;
+            double rhs;
+
+            if (evaluate(node->left, &lhs))
+                return 1;
+
+            if (evaluate(node->right, &rhs))
+                return 1;
 
             if (rhs == 0)
             {
                 fprintf(stderr, "Division by zero.\n");
-                exit(1);
+                return 1;
             }
 
-            return evaluate(node->left) / rhs;
+            *result = lhs / rhs;
+            return 0;
         }
+
 
         default:
             fprintf(stderr, "Unknown AST node.\n");
-            exit(1);
+            return 1;
     }
 }

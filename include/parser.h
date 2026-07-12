@@ -7,11 +7,16 @@
 typedef struct
 {
     Lexer lexer;
+
+    int has_error;
+    const char *error_message;
 } Parser;
 
 void parser_init(Parser *p, const char *text);
 
 void eat(Parser *p, TokenType expected);
+
+void parser_error(Parser *p, const char *message);
 
 ASTNode *parse_factor(Parser *p);
 

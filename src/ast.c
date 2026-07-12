@@ -1,5 +1,6 @@
 #include "../include/ast.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 
 void print_ast(ASTNode *node, int depth)
@@ -8,7 +9,7 @@ void print_ast(ASTNode *node, int depth)
         return;
 
     for (int i = 0; i < depth; i++)
-        printf(" ");
+        printf("    ");
 
     switch(node->type)
     {
@@ -31,8 +32,24 @@ void print_ast(ASTNode *node, int depth)
         case AST_DIV:
             printf("DIV\n");
             break;
+        default:
+            printf("Unknown\n");
+            break;
     
     }
     print_ast(node->left, depth + 1);
     print_ast(node->right, depth + 1);
+}
+
+void free_ast(ASTNode *node)
+{
+    if(!node)
+    {
+        return;
+    }
+
+    free_ast(node->left);
+    free_ast(node->right);
+
+    free(node);
 }

@@ -3,6 +3,6 @@
 
 #include "ast.h"
 
-double evaluate(ASTNode *root);
+int evaluate(ASTNode *root, double *result);
 
 #endif

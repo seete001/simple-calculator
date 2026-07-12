@@ -1,8 +1,7 @@
-#include "../include/ast.h"
-#include "../include/parser.h"
-#include "../include/evaluator.h"
+#include "../include/calculator.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #define BUFFER_SIZE 256
 
@@ -20,22 +19,16 @@
 int main(void)
 {
     char buffer[BUFFER_SIZE];
-
-    fgets(buffer, BUFFER_SIZE, stdin);
     
-    
-    Parser parser;
+    double result;       
 
-    parser_init(&parser, buffer);
-
-
-    ASTNode *root = parse_expression(&parser);
-
-    print_ast(root, 0);
-
-    double result = evaluate(root);
-
-    printf("Result = %.2f\n", result);
+        while(fgets(buffer, BUFFER_SIZE, stdin))
+        {
+            if(calculate(buffer, &result) == 0)
+            {
+                printf("Result = %.2f\n>",result);
+            }
+        }
 
     return 0;
 }
